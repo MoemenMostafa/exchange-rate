@@ -56,3 +56,26 @@ export class ExchangeDataObj {
     }
   }
 }
+
+export class ExchangeHistoryObj {
+  base: string;
+  start_at: string;
+  rates: {};
+  end_at: any;
+  ratesArray?: any;
+  dates: any;
+
+  constructor(exchangeHistoryObj: ExchangeHistoryObj = null) {
+    let ratesArray = [];
+    let dates = [];
+    if(exchangeHistoryObj){
+      Object.keys(exchangeHistoryObj.rates).forEach(function(key) {
+        let rateObj = Object.keys( exchangeHistoryObj.rates[key] );
+        ratesArray.push(exchangeHistoryObj.rates[key][rateObj[0]]);
+        dates.push(key);
+      });
+      this.ratesArray = ratesArray;
+      this.dates = dates;
+    }
+  }
+}

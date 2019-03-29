@@ -1,6 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {ExchangeDataObj, ExchangeRateService} from "../../modules/exchange-rate/exchange-rate.service";
+import {
+  ExchangeDataObj, ExchangeHistoryObj,
+  ExchangeRateService
+} from "../../modules/exchange-rate/exchange-rate.service";
 import { Chart } from 'chart.js';
 
 
@@ -24,6 +27,7 @@ export class ChartsPage {
   range = "1";
   lineChart: any;
   symbol;
+  ratesHistoryTimesAmount;
 
   @ViewChild('lineCanvas') lineCanvas;
 
@@ -44,7 +48,7 @@ export class ChartsPage {
       )
   }
 
-  changeSymbol(value) {
+  submitChange(value) {
     let start_at = this.getDate(parseInt(this.range));
     let end_at = this.getDate();
     this.exchangeRateSrv.getExchangeRateHistory(
@@ -54,7 +58,11 @@ export class ChartsPage {
         symbols: this.symbol
       }
     ).subscribe(
-      (exchangeRateHistory) => this.ratesHistory = exchangeRateHistory
+      (exchangeRateHistory) => {
+        this.ratesHistory = new ExchangeHistoryObj((exchangeRateHistory));
+        console.log(this.ratesHistory);
+        this.changeAmount();
+      }
     )
 
   }
@@ -67,15 +75,23 @@ export class ChartsPage {
     return modifiedDate.getFullYear() + '-' + month + '-' + modifiedDate.getDate()
   }
 
+  changeAmount(){
+    this.ratesHistoryTimesAmount = this.ratesHistory.ratesArray.map(
+      rate => rate * this.amount
+    )
+    console.log(this.ratesHistoryTimesAmount);
+    this.drawChart()
+  }
+
   private drawChart(){
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
 
       type: 'line',
       data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: this.ratesHistory.dates,
         datasets: [
           {
-            label: "My First dataset",
+            label: "Exhange Rate",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -93,7 +109,7 @@ export class ChartsPage {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: this.rates,
+            data: this.ratesHistoryTimesAmount,
             spanGaps: false,
           }
         ]

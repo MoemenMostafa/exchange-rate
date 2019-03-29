@@ -4,7 +4,7 @@
       <ion-col col-9>
         <ion-item>
           <ion-label color="primary">Amount</ion-label>
-          <ion-input type="email" placeholder="Enter Amount" [(ngModel)]="amount" name="amount"></ion-input>
+          <ion-input type="email" placeholder="Enter Amount" [(ngModel)]="amount" name="amount" (ngModelChange)="changeAmount($event)"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col col-3>
@@ -15,11 +15,11 @@
     </ion-row>
     TO
     <ion-item>
-      <ion-select placeholder="Select Currency" interface="popover" [(ngModel)]="symbol" (ngModelChange)="changeSymbol($event)">
+      <ion-select placeholder="Select Currency" interface="popover" [(ngModel)]="symbol" (ngModelChange)="submitChange($event)">
         <ion-option *ngFor="let rate of data?.ratesArray" value="{{rate.symbol}}">{{rate.symbol}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-segment [(ngModel)]="range" (ngModelChange)="changeSymbol($event)">
+    <ion-segment [(ngModel)]="range" (ngModelChange)="submitChange($event)">
       <ion-segment-button value="1">
         1D
       </ion-segment-button>
