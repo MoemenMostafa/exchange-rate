@@ -1,3 +1,43 @@
 <ion-content padding>
-    Charts
+  <ion-list>
+    <ion-row align-items-center>
+      <ion-col col-9>
+        <ion-item>
+          <ion-label color="primary">Amount</ion-label>
+          <ion-input type="email" placeholder="Enter Amount" [(ngModel)]="amount" name="amount"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-3>
+        <ion-item>
+          <ion-label color="primary">EUR</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    TO
+    <ion-item>
+      <ion-select placeholder="Select Currency" interface="popover" [(ngModel)]="symbol" (ngModelChange)="changeSymbol($event)">
+        <ion-option *ngFor="let rate of data?.ratesArray" value="{{rate.symbol}}">{{rate.symbol}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-segment [(ngModel)]="range">
+      <ion-segment-button value="1">
+        1D
+      </ion-segment-button>
+      <ion-segment-button value="30">
+        1M
+      </ion-segment-button>
+      <ion-segment-button value="365">
+        1Y
+      </ion-segment-button>
+    </ion-segment>
+  </ion-list>
+  <ion-card>
+    <ion-card-header>
+      Chart
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

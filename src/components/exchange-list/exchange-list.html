@@ -1,0 +1,13 @@
+<ion-list *ngIf="data">
+  <div *ngFor="let item of data.ratesArray; let i = index">
+    <ion-item>
+      <h2>{{item.symbol}}</h2>
+      <ion-note item-end text-end>
+        <div>{{item.rate * amount | number : '1.2-2'}}</div>
+        <div>1 EUR = {{item.rate | number : '1.2-4'}} {{item.symbol}}</div>
+        <div>1 {{item.symbol}} = {{1 / item.rate | number : '1.2-4'}} EUR</div>
+      </ion-note>
+    </ion-item>
+  </div>
+</ion-list>
+

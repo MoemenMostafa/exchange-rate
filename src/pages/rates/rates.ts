@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the RatesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {ExchangeDataObj, ExchangeRateService} from "../../modules/exchange-rate/exchange-rate.service";
 
 @IonicPage()
 @Component({
@@ -15,11 +9,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RatesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  data: any;
+  amount: number = 1;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private exchangeRateSrv: ExchangeRateService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RatesPage');
+  }
+
+  ionViewWillEnter() {
+    this.exchangeRateSrv.getExchangeRate()
+      .subscribe(
+        (exchangeRateData) => {
+          this.data = new ExchangeDataObj(exchangeRateData);
+          console.log(this.data);
+        }
+      )
   }
 
 }

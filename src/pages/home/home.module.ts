@@ -3,6 +3,7 @@ import {HomePage} from "./home";
 import {IonicPageModule} from "ionic-angular";
 import {RatesPageModule} from "../rates/rates.module";
 import {ChartsPageModule} from "../charts/charts.module";
+import {ExchangeRateModule} from "../../modules/exchange-rate/exchange-rate.module";
 
 @NgModule({
     declarations:[
@@ -11,7 +12,8 @@ import {ChartsPageModule} from "../charts/charts.module";
     imports: [
       IonicPageModule.forChild(HomePage),
       RatesPageModule,
-      ChartsPageModule
+      ChartsPageModule,
+      ExchangeRateModule
     ]
 })
 export class HomePageModule {}

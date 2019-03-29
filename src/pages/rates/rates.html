@@ -1,3 +1,18 @@
 <ion-content padding>
-  Rates
+  <ion-list>
+      <ion-row align-items-center>
+        <ion-col col-9>
+          <ion-item>
+              <ion-label color="primary">Amount</ion-label>
+              <ion-input type="email" placeholder="Enter Amount" [(ngModel)]="amount" name="amount"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-3>
+          <ion-item>
+            <ion-label color="primary">EUR</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  </ion-list>
+  <exchange-list [data]="data" [amount]="amount"></exchange-list>
 </ion-content>
