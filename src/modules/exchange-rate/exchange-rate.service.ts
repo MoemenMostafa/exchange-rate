@@ -69,7 +69,7 @@ export class ExchangeHistoryObj {
     let ratesArray = [];
     let dates = [];
     if(exchangeHistoryObj){
-      Object.keys(exchangeHistoryObj.rates).forEach(function(key) {
+      Object.keys(exchangeHistoryObj.rates).sort().forEach(function(key) {
         let rateObj = Object.keys( exchangeHistoryObj.rates[key] );
         ratesArray.push(exchangeHistoryObj.rates[key][rateObj[0]]);
         dates.push(key);
