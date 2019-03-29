@@ -1,1 +1,1 @@
-## Exhange Rate
+## Exchange Rate
