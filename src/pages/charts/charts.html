@@ -19,7 +19,7 @@
         <ion-option *ngFor="let rate of data?.ratesArray" value="{{rate.symbol}}">{{rate.symbol}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-segment [(ngModel)]="range">
+    <ion-segment [(ngModel)]="range" (ngModelChange)="changeSymbol($event)">
       <ion-segment-button value="1">
         1D
       </ion-segment-button>

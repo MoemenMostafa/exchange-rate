@@ -45,7 +45,7 @@ export class ChartsPage {
   }
 
   changeSymbol(value) {
-    let start_at = this.getDate(this.range);
+    let start_at = this.getDate(parseInt(this.range));
     let end_at = this.getDate();
     this.exchangeRateSrv.getExchangeRateHistory(
       {
@@ -62,7 +62,7 @@ export class ChartsPage {
   getDate(range = 0){
     let date = new Date();
     let modifiedDate = new Date();
-    modifiedDate.setDate(date.getDate() - parseInt(range));
+    modifiedDate.setDate(date.getDate() - range);
     let month = modifiedDate.getMonth()+1;
     return modifiedDate.getFullYear() + '-' + month + '-' + modifiedDate.getDate()
   }
